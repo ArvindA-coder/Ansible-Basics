@@ -1,0 +1,14 @@
+---
+- hosts: webservers
+  remote_user: devuser
+  become: yes
+  vars:
+     pkg: httpd
+  tasks:
+
+      - name: install {{pkg}}
+        yum: name={{pkg}} state=installed
+      - name: create index.html
+        copy: src=index.html dest=/var/www/html
+      - name: start {{pkg}} service
+        service: name={{pkg}} state=started

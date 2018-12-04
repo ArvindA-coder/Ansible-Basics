@@ -1,0 +1,16 @@
+---
+- hosts: webservers
+  remote_user: devuser
+  become: yes
+  vars:
+     pkg: httpd
+  vars_files: 
+     - varfile.yml 
+  tasks:
+
+      - name: install {{pkg123}}
+        yum: name={{pkg123}} state=installed
+      - name: create index.html
+        copy: src=index.html dest=/var/www/html
+      - name: start {{pkg123}} service
+        service: name={{pkg123}} state=started
